@@ -14,4 +14,12 @@ class Git
   def self.delete_repo(repo_name)
     client.delete_repository(repo_name)
   end
+
+  def self.get_invite_url(repo_name)
+    "https://github.com/letslevelup/#{repo_name}/invitations" 
+  end
+
+  def self.get_git_url(repo_name)
+    "git@github.com:letslevelup/#{repo_name}.git"
+  end
 end

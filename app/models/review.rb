@@ -17,6 +17,6 @@ class Review < ApplicationRecord
   end
 
   def generate_repo_slug
-    git_repo = user.github_username + SecureRandom.hex(5)
+    self.git_repo = user.github_username + SecureRandom.hex(5)
   end
 end
