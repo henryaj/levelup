@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_27_202529) do
+ActiveRecord::Schema.define(version: 2018_06_27_235758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.bigint "reviews_id"
+    t.bigint "users_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_languages_on_name", unique: true
+    t.index ["reviews_id"], name: "index_languages_on_reviews_id"
+    t.index ["users_id"], name: "index_languages_on_users_id"
+  end
 
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id"
@@ -31,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_06_27_202529) do
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "github_username"
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 

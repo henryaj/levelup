@@ -2,8 +2,8 @@ class CreateLanguages < ActiveRecord::Migration[5.2]
   def change
     create_table :languages do |t|
       t.string :name
-      t.reference :reviews
-      t.reference :users
+      t.references :reviews
+      t.references :users
 
       t.timestamps
     end
