@@ -2,8 +2,7 @@
 
 <p><em>Level up your programming skills</em></p>
 
-<a href="#">Sign up</a>
-<a href="#">Log in</a>
-<a href="#">Reviews</a>
+<%= link_to "Sign up", new_user_registration_path %>
+<%= link_to "Log in", new_user_session_path %>
 
 <%= link_to "Sign in with GitHub", user_github_omniauth_authorize_path %>

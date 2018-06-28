@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /reviews
   # GET /reviews.json
@@ -10,6 +11,10 @@ class ReviewsController < ApplicationController
   # GET /reviews/1
   # GET /reviews/1.json
   def show
+    @git_clone_command = "$ git clone " + Git.get_git_url(@review.git_repo)
+    @git_add_remote_command = "$ git add remote levelup " + Git.get_git_url(@review.git_repo) +
+      "\n$ git push levelup master"
+    @invite_url = Git.get_invite_url(@review.git_repo)
   end
 
   # GET /reviews/new
@@ -24,7 +29,8 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(review_params)
+    @review = Review.new
+    current_user.reviews << @review
 
     respond_to do |format|
       if @review.save
@@ -65,10 +71,5 @@ class ReviewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def review_params
-      params.require(:review).permit(:user_id, :uid)
     end
 end

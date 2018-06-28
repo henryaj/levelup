@@ -1,19 +1,23 @@
-<p id="notice"><%= notice %></p>
+<h1>Let's review your code! 🙌</h1>
 
-<p>
-  <strong>User:</strong>
-  <%= @review.user %>
-</p>
+<p>A new repo has been created for you!<p>
 
-<p>
-  <strong>Uid:</strong>
-  <%= @review.uid %>
-</p>
+<h2>1. Accept invitation</h2>
+<p>First, <%= link_to "accept the collaboration invite on GitHub", @invite_url %>.</p>
 
-<p>
-  <strong>Git repo:</strong>
-  <%= @review.git_repo %>
-</p>
+<h2>2. Clone repo and commit</h2>
+<p>Clone the repo locally:</p>
+<pre><%= @git_clone_command %></pre>
+
+<p>Then, add your code. When you're done, commit it and push.</p>
+
+<h3>I already have a repo</h3>
+<p>No problem – just run these commands to add a new remote and push your code up:</p>
+
+<pre><%= @git_add_remote_command %></pre>
+
+<h2>3. Submit for review</h2>
+<p><em>Waiting for commit...</em></p>
 
 <%= link_to 'Edit', edit_review_path(@review) %> |
 <%= link_to 'Back', reviews_path %>
