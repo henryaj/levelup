@@ -55,3 +55,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "octokit", "~> 4.0"
+
+gem "devise"
+gem "omniauth-github"
