@@ -1,11 +1,12 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  before_action :check_ownership, only: [:destroy]
 
   # GET /reviews
   # GET /reviews.json
   def index
-    @reviews = Review.all
+    @reviews = Review.where(user: current_user)
   end
 
   # GET /reviews/1
@@ -17,13 +18,14 @@ class ReviewsController < ApplicationController
     @invite_url = Git.get_invite_url(@review.git_repo)
   end
 
+  def show_pending
+    render :index
+  end
+
   # GET /reviews/new
   def new
     @review = Review.new
-  end
-
-  # GET /reviews/1/edit
-  def edit
+    create
   end
 
   # POST /reviews
@@ -34,7 +36,7 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
+        format.html { redirect_to @review }
         format.json { render :show, status: :created, location: @review }
       else
         format.html { render :new }
@@ -71,5 +73,14 @@ class ReviewsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_review
     @review = Review.find(params[:id])
+  end
+
+  def check_ownership
+    unless @review.user == current_user
+      respond_to do |format|
+        format.html { redirect_to reviews_url, notice: "You aren't allowed to do that.", status: :unauthorized}
+        format.json { head :no_content, status: :unauthorized }
+      end
+    end
   end
 end
