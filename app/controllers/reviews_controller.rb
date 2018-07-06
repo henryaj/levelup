@@ -19,6 +19,7 @@ class ReviewsController < ApplicationController
   end
 
   def show_pending
+    @reviews = Review.select { |r| r.reviewers.length == 0 }
     render :index
   end
 
