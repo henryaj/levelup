@@ -1,9 +1,15 @@
-<h1>levelup</h1>
+<div class="row">
+  <div class="col-lg-6 col-sm-12">
+    <h1>levelup</h1>
 
-<p><em>Level up your programming skills – get code reviews from others</em></p>
+    <p><em>Level up your programming skills – get code reviews from others</em></p>
 
-<% if user_signed_in? %>
-  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign in with GitHub", user_github_omniauth_authorize_path %>
-<% end %>
+    <% if user_signed_in? %>
+      <%= render "pages/dashboard" %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+
+    <% else %>
+      <%= link_to "Sign in with GitHub", user_github_omniauth_authorize_path %>
+    <% end %>
+  </div>
+</div>
