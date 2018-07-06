@@ -33,6 +33,7 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @review = Review.new
+    @review.owner = current_user
     current_user.reviews << @review
 
     respond_to do |format|
